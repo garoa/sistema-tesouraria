@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from django.contrib.auth.models import User
 from imagekit.models import ImageSpecField
@@ -74,6 +75,7 @@ class ModeratedModel(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    approved_timestamp = models.DateTimeField(blank=True, null=True)
 
     moderation_status = models.CharField(
         verbose_name='Status de Moderação',
@@ -104,7 +106,7 @@ class Plano(ModeratedModel):
         blank=True,
         null=True,
     )
-    validade_data_inicio= models.DateTimeField()
+    validade_data_inicio = models.DateTimeField()
     data_validade_fim = models.DateTimeField()
     descricao = models.TextField()
 
@@ -118,8 +120,9 @@ class Lancamento(ModeratedModel):
     )
 
     CREDITO_DEBITO_CHOICES = (
-        ('d', 'Debito'),
-        ('c', 'Credito'),
+        ('d', 'Débito'),
+        ('c', 'Crédito'),
+        #('n', 'Doação'),
     )
 
     # user
@@ -162,9 +165,12 @@ class Lancamento(ModeratedModel):
 
     def save(self, *args, **kwargs):
         if self.moderation_status == 'A' and self.saldo is None:
-            lancamento_obj = Lancamento.objects.filter(
-                    created_on__lt=self.created_on,
-                    moderation_status='A').latest('created_on')
+            self.approved_timestamp = timezone.now()
+            qs = Lancamento.objects.exclude(approved_timestamp__isnull=True)
+            len(qs) # eval
+            lancamento_obj = qs.filter(
+                    approved_timestamp__lt=self.approved_timestamp,
+                    moderation_status='A').latest('approved_timestamp')
 
             valor = self.valor if self.credito_debito == 'c' else -self.valor
             novo_saldo = lancamento_obj.saldo + valor
