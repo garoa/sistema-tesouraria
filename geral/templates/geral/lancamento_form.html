@@ -1,0 +1,38 @@
+{% extends "geral/base.html" %}
+{% load i18n static %}
+
+{% block extrascripts %}
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+      <script>
+          $( function() {
+              $( "#id_timestamp_comprovante" ).datepicker();
+            } );
+      </script>
+
+{% endblock %}
+
+    {% block nav-global %}
+    <h2>Acesso</h2>
+    <ul>
+        <li><a href="{% url 'admin:logout' %}">Logout</a>: {{ request.user }}</li>
+        <li><a href="{% url 'lancamento-list' %}">Minha Conta</a></li>
+        <li><a href="{% url 'plano-list' %}">Meus Planos</a></li>
+        <li>Submeter Comprovante</li>
+    </ul>
+    {% endblock%}
+
+    {% block content %}
+    <h2>Submissão de comprovantes:</h2>
+    <form action="" method="post">{% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Save" />
+    </form>
+    <p>Em caso de dúvidas, entre em contato: tesoureiro@garoa.net.br <br> *¹ - Transções sujeitas a aprovação
+    </p>
+    {% endblock %}

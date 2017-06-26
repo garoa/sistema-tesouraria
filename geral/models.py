@@ -137,6 +137,7 @@ class Lancamento(ModeratedModel):
         blank=True,
         null=True,
     )
+
     # autor (sistema usuário)
     autor = models.CharField(
         max_length=1,
@@ -148,7 +149,7 @@ class Lancamento(ModeratedModel):
         choices=CREDITO_DEBITO_CHOICES
     )
     # data
-    timestamp_comprovante = models.DateTimeField(auto_now_add=True)
+    timestamp_comprovante = models.DateTimeField('Data do Comprovante')
     # valor
     valor = models.DecimalField(max_digits=15, decimal_places=2)
     # saldo

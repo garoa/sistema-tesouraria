@@ -4,9 +4,9 @@
     <h2>Acesso</h2>
     <ul>
         <li><a href="{% url 'admin:logout' %}">Logout</a>: {{ request.user }}</li>
-        <li>Minha Conta</li>
-        <li><a href="{% url 'plano-list' %}">Meus Planos</a></li>
-        <li><a href="{% url 'lancamento-create'%}">Submeter Comprovante</a></li>
+        <li><a href="{% url 'lancamento-list' %}">Minha Conta</a></li>
+        <li>Meus Planos</li>
+        <li><a href="{% url 'lancamento-create' %}">Submeter Comprovante</a></li>
     </ul>
     {% endblock%}
 
@@ -16,25 +16,24 @@
         <tr>
             <th>ID</th>
             <th>Timestamp</th>
-            <th>Fonte</th>
             <th>Status</th>
-            <th>Valor</th>
-            <th>C/D</th>
+            <th>Plano</th>
             <th>Descrição</th>
-            <th>Saldo</th>
+            <th>Validade Inicio</th>
+            <th>Validade Fim</th>
         </tr>
         {% for reg in object_list %}
             <tr>
                 <td>{{ reg.id }}</td>
                 <td>{{ reg.approved_timestamp|default:"_ *¹" }}</td>
-                <td>{{ reg.get_autor_display }}</td>
                 <td>{{ reg.get_moderation_status_display }}</td>
-                <td>{{ reg.valor }}</td>
-                <td>{{ reg.credito_debito }}</td>
+                <td>{{ reg.get_plano_display }}</td>
                 <td>{{ reg.descricao }}</td>
-                <td>R$ {{ reg.saldo }}</td>
+                <td>{{ reg.data_validade_inicio }}</td>
+                <td>{{ reg.data_validade_fim }}</td>
             </tr>
         {% endfor %}
+
     </table>
     <p>Em caso de dúvidas, entre em contato: tesoureiro@garoa.net.br <br> *¹ - Transções sujeitas a aprovação
     </p>

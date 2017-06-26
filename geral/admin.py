@@ -4,7 +4,7 @@ from geral.models import Lancamento
 from geral.models import Plano
 
 class PlanoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'plano', 'descricao', 'data_validade_fim', 'data_validade_fim', 'approved_timestamp', 'moderation_status',)
+    list_display = ('id', 'user', 'plano', 'descricao', 'validade_data_inicio', 'data_validade_fim', 'approved_timestamp', 'moderation_status',)
     list_filter = ('moderation_status', 'user')
     search_fields = ('descricao',)
 
