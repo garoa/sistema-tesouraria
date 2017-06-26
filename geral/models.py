@@ -53,6 +53,16 @@ def create_user_associado(sender, instance, created, **kwargs):
                 pass
         except User.associado.RelatedObjectDoesNotExist:
             Associado.objects.create(user=instance)
+            Lancamento.objects.create(
+                    moderation_status = 'A',
+                    user=instance,
+                    autor='s',
+                    valor='0',
+                    saldo='0',
+                    timestamp_comprovante=timezone.now(),
+                    approved_timestamp=timezone.now(),
+                    credito_debito='c',
+                    descricao='Abertura da Conta')
 
 post_save.connect(create_user_associado, sender=User)
 
