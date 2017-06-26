@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sistema da Tesouraria do Garoa</title>
+
+        <style>
+        </style>
+        {% block extrastyle %}{% endblock %}
+    </head>
+    <body>
+        <div style="width: 100%;">
+           <div style="float:left">
+                <img src="https://garoa.net.br/ghc/ghc_logo.png">
+            </div>
+            <div style="float:right; width: 89%;">
+                <h1>Sistema da Tesouraria do Garoa</h1>
+                <p>Esse sistema serve para que os associados do Garoa se comunicarem oficialmente com a tesouraria.</br> Aqui você pode quitar seus debitos e pedir reembolsos.<p>
+
+                {% block nav-global %}
+                <h2>Acesso</h2>
+                <ul>
+                    {% if not user.is_authenticated %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% else %}
+                    <li><a href="{% url 'logout' %}">Logout</a>: {{ user }}</li>
+                    {% endif %}
+                    <li><a href="{% url 'lancamento-list' %}">Minha Conta</a></li>
+                </ul>
+                <h2>Links Instutucionais</h2>
+                <ul>
+                    <li><a href="https://garoa.net.br/wiki/P%C3%A1gina_principal">Wiki do Garoa</a></li>
+                    <li><a href="https://garoa.net.br/wiki/Contribui%C3%A7%C3%B5es">Como contribuir para o Garoa</a></li>
+                    <li><a href="https://garoa.net.br/wiki/Categoria:Reuni%C3%B5es">Atas do Conselho Manda Chuva</a></li>
+                </ul>
+                {% endblock %}
+
+                {% block content %}
+                {% endblock %}
+
+                {% block footer %}
+                <div id="footer">
+                    <hr>
+                    <p>Não critique o design desta página. <br> Se você quiser fazer um melhor, você está convidado a mandar um pull-request <a href="https://github.com/garoa/sistema-tesouraria">https://github.com/garoa/sistema-tesouraria</a><p>
+                    <p>Fucks given since 23/07/2017: &#8709;</p>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </body>
+</html>

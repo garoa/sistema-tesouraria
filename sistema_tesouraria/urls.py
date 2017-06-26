@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf.urls import include
+from django.views.generic.base import RedirectView
+from django.contrib.auth.views import login, logout
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', RedirectView.as_view(url='https://www.youtube.com/watch?v=ednKK8GlvwI')),
+    url(r'^conselho/', admin.site.urls),
+    url(r'^', include('geral.urls')),
+    url(r'^accounts/login/$', login, name='login'),
+    url(r'^accounts/logout/$', logout, name='logout'),
 ]

@@ -1,0 +1,41 @@
+{% extends "geral/base.html" %}
+{% load i18n static %}
+    {% block nav-global %}
+    <h2>Acesso</h2>
+    <ul>
+        <li><a href="{% url 'admin:logout' %}">Logout</a>: {{ request.user }}</li>
+        <li><a href="{% url 'lancamento-list' %}">Minha Conta</a></li>
+        <li><a href="#">Meus Planos</a></li>
+        <li><a href="#">Submeter Comprovante</a></li>
+    </ul>
+    {% endblock%}
+
+    {% block content %}
+    <h2>Saldo:</h2>
+    <table border=1>
+        <tr>
+            <th>ID</th>
+            <th>Timestamp</th>
+            <th>Fonte</th>
+            <th>Status</th>
+            <th>Valor</th>
+            <th>C/D</th>
+            <th>Descrição</th>
+            <th>Saldo</th>
+        </tr>
+        {% for reg in object_list %}
+            <tr>
+                <td>{{ reg.id }}</td>
+                <td>{{ reg.approved_timestamp|default:"_ *¹" }}</td>
+                <td>{{ reg.get_autor_display }}</td>
+                <td>{{ reg.get_moderation_status_display }}</td>
+                <td>{{ reg.valor }}</td>
+                <td>{{ reg.credito_debito }}</td>
+                <td>{{ reg.descricao }}</td>
+                <td>R$ {{ reg.saldo }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p>Em caso de dúvidas, entre em contato: tesoureiro@garoa.net.br <br> *¹ - Transções sujeitas a aprovação
+    </p>
+    {% endblock %}

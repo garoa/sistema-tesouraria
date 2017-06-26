@@ -38,6 +38,9 @@ class Associado(models.Model):
     contato_emergencia = models.CharField(max_length=128)
     mestre = models.CharField(max_length=32)
 
+    def __str__(self):
+        return self.user
+
 def create_user_associado(sender, instance, created, **kwargs):
 
     if kwargs.get('raw', False):
@@ -75,7 +78,9 @@ class ModeratedModel(models.Model):
 
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
     approved_timestamp = models.DateTimeField(blank=True, null=True)
+    moderation_comments = models.TextField(blank=True, null=True)
 
     moderation_status = models.CharField(
         verbose_name='Status de Moderação',
@@ -106,8 +111,8 @@ class Plano(ModeratedModel):
         blank=True,
         null=True,
     )
-    validade_data_inicio = models.DateTimeField()
-    data_validade_fim = models.DateTimeField()
+    validade_data_inicio = models.DateField()
+    data_validade_fim = models.DateField()
     descricao = models.TextField()
 
 
