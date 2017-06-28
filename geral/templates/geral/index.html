@@ -1,2 +1,38 @@
 {% extends "geral/base.html" %}
 {% load i18n static %}
+
+{% block content %}
+<h2>Faça uma Doação</h2>
+
+<ul>
+    <li><a href="https://garoa.net.br/wiki/Contribui%C3%A7%C3%B5es">Como contribuir para o Garoa</a></li>
+    <li><a href="https://garoa.net.br/wiki/Como_se_associar">Como se associar</a></li>
+</ul>
+
+<p>Você pode fazer uma doação online:</p>
+
+<div>
+    <div style="float: left; width: 220px;">
+        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_200x51.png" alt="PayPal Logo">
+    </div>
+    <div>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="HGTMYD9HW7YWW">
+        <input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<div>
+    <div style="float: left; width: 100px;">
+        <a href="https://unlock.fund/pt-BR/garoa" rel="nofollow"><img alt="Logo-unlock.png" src="" srcset="https://garoa.net.br/w/images/thumb/Logo-unlock.png/150px-Logo-unlock.png" height="43" width="100"></a>
+    </div>
+    <div>
+        <a href="https://unlock.fund/pt-BR/garoa" rel="nofollow"><img alt="Qr unlock garoa.png" src="https://garoa.net.br/w/images/Qr_unlock_garoa.png" height="200" width="200"></a>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+{% endblock %}
