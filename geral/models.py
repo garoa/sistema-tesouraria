@@ -185,6 +185,7 @@ class Lancamento(ModeratedModel):
             qs = Lancamento.objects.exclude(approved_timestamp__isnull=True)
             len(qs) # eval
             lancamento_obj = qs.filter(
+                    user=self.user,
                     approved_timestamp__lt=self.approved_timestamp,
                     moderation_status='A').latest('approved_timestamp')
 
