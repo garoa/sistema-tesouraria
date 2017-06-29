@@ -14,6 +14,9 @@ class LancamentoAdmin(admin.ModelAdmin):
     list_filter = ('credito_debito', 'moderation_status', 'user')
     search_fields = ('descricao',)
 
+    def get_readonly_fields(self, request, obj=None):
+        return self.readonly_fields + ('saldo',)
+
 
 # Register your models here.
 admin.site.register(Associado)
