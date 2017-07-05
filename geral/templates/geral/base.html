@@ -13,10 +13,11 @@
 
     <body>
         <div style="width: 100%;">
-           <div style="float:left">
+            <div style="width: 11%; float:left;">
                 <img src="https://garoa.net.br/ghc/ghc_logo.png">
             </div>
-            <div style="float:right; width: 89%;">
+
+            <div style="width: 50%; float:left">
                 <h1>Sistema da Tesouraria do Garoa</h1>
                 <p>Esse sistema serve para que os associados do Garoa se comunicarem oficialmente com a tesouraria.</br> Aqui você pode quitar seus debitos e pedir reembolsos.<p>
 
@@ -41,15 +42,32 @@
                 {% block content %}
                 {% endblock %}
 
-                {% block footer %}
-                <div id="footer">
-                    <hr>
-                    <p>Não critique o design desta página. <br> Se você quiser fazer um melhor, você está convidado a mandar um pull-request <a href="https://github.com/garoa/sistema-tesouraria">https://github.com/garoa/sistema-tesouraria</a><p>
-                    <p>Fucks given since 23/07/2017: &#8709;</p>
-                </div>
+            </div>
+
+            <div style="float:left; width: 25%;">
+                {% block doacoes %}
                 {% endblock %}
             </div>
+
+            <div style="clear:both"></div>
+
         </div>
+        </div> <!-- ? bug -->
+
         <div style="clear:both"></div>
+
+        {% block footer %}
+        </div>
+        <div id="footer" style="width: 100%;">
+            <hr>
+            <div style="float:left; width: 147px;">
+            </div>
+            <div style="float:right; width: 89%;">
+                <p>Não critique o design desta página. <br> Se você quiser fazer um melhor, você está convidado a mandar um pull-request <a href="https://github.com/garoa/sistema-tesouraria">https://github.com/garoa/sistema-tesouraria</a><p>
+                <p>Fucks given since 23/07/2017: &#8709;</p>
+            </div>
+        </div>
+        {% endblock %}
+
     </body>
 </html>
