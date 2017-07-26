@@ -26,6 +26,12 @@ Using this template to create a new Django app is easy::
 
 You can replace ``helloworld`` with your desired project name.
 
+## Run contrib to generate your secret key
+
+```
+python3 contrib/env_gen.py
+```
+
 ## Deployment to Heroku
 
     $ git init
