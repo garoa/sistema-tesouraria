@@ -26,6 +26,12 @@ Using this template to create a new Django app is easy::
 
 You can replace ``helloworld`` with your desired project name.
 
+## Run contrib to generate your secret key
+
+```
+python3 contrib/env_gen.py
+```
+
 ## Deployment to Heroku
 
     $ git init
@@ -39,9 +45,9 @@ You can replace ``helloworld`` with your desired project name.
 
 See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
 
-## Using Python 2.7?
+## Using Python 3.6.1?
 
-Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
+Just update `runtime.txt` to `python-3.6.1` (no trailing spaces or newlines!).
 
 
 ## License: MIT

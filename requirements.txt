@@ -1,5 +1,4 @@
 Django==1.11.1
-Pillow==4.1.1
 dj-database-url==0.4.1
 django-appconf==1.0.2
 django-imagekit==4.0.1
@@ -7,7 +6,9 @@ django-simple-history==1.9.0
 gunicorn==19.6.0
 olefile==0.44
 pilkit==2.0
+Pillow==4.1.1
 psycopg2==2.6.2
+python-decouple==3.0
 pytz==2017.2
 six==1.10.0
 whitenoise==3.2
