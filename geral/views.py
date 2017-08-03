@@ -1,14 +1,20 @@
 # -*- coding: utf-8
 
+import json
+import requests
+
+from django.shortcuts import redirect
+from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic import CreateView
 
-from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth.models import User
 
 from geral.models import Plano
 from geral.models import Lancamento
+from geral.form import UserForm
 
 
 class PlanoListView(LoginRequiredMixin, ListView):
@@ -45,3 +51,29 @@ class LancamentoCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('lancamento-list')
+
+
+class ContadorCreateView(CreateView):
+    model = User
+    form_class = UserForm
+
+    def form_valid(self, form):
+
+        response = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                data = {'secret':'6LevmisUAAAAAAAn7YTyb0g7nQH60-J_9wDyAl0y',
+                        'remoteip': self.request.META.get('REMOTE_ADDR', ''),
+                        'response': self.request.POST.get('g-recaptcha-response', '')})
+
+        response_payload = json.loads(response.text)
+
+        if not response_payload['success']:
+            return redirect('https://www.youtube.com/watch?v=QH2-TGUlwu4')
+
+        if self.request.POST.get('honeypot', ''):
+            return redirect('https://www.youtube.com/watch?v=KgbSjRMqyjc')
+
+        return super(ContadorCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('login')
+

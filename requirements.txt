@@ -11,3 +11,4 @@ psycopg2==2.6.2
 pytz==2017.2
 six==1.10.0
 whitenoise==3.2
+requests==2.18.3

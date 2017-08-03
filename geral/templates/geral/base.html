@@ -29,6 +29,7 @@
                     {% else %}
                     <li><a href="{% url 'logout' %}">Logout</a>: {{ user }}</li>
                     {% endif %}
+                    <li><a href="{% url 'user-create' %}">Cadastro</a></li>
                     <li><a href="{% url 'lancamento-list' %}">Minha Conta</a></li>
                 </ul>
                 <h2>Links Instutucionais</h2>
