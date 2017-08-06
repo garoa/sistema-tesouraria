@@ -41,6 +41,7 @@ class Associado(models.Model):
     def __str__(self):
         return self.user
 
+
 def create_user_associado(sender, instance, created, **kwargs):
 
     if kwargs.get('raw', False):
@@ -195,3 +196,9 @@ class Lancamento(ModeratedModel):
 
         super(Lancamento, self).save(*args, **kwargs)
 
+from mail_shortcuts import sendgrid_lancamento
+
+def sendmail_lancamento(sender, instance, created, **kwargs):
+    mail_shortcuts(instance)
+
+post_save.connect(sendmail_lancamento, sender=Lancamento)
