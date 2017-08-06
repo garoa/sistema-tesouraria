@@ -7,6 +7,8 @@ from imagekit.processors import ResizeToFill
 from django.db.models.signals import post_save
 from simple_history.models import HistoricalRecords
 
+from geral.mail_shortcuts import sendgrid_lancamento
+
 
 class Associado(models.Model):
 
@@ -196,9 +198,8 @@ class Lancamento(ModeratedModel):
 
         super(Lancamento, self).save(*args, **kwargs)
 
-from mail_shortcuts import sendgrid_lancamento
-
 def sendmail_lancamento(sender, instance, created, **kwargs):
     mail_shortcuts(instance)
 
 post_save.connect(sendmail_lancamento, sender=Lancamento)
+
