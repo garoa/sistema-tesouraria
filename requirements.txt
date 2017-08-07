@@ -14,3 +14,4 @@ whitenoise==3.2
 requests==2.18.3
 APScheduler==3.3.1
 sendgrid==4.2.1
+django-extensions==1.8.1
