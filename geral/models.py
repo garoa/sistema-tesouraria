@@ -198,8 +198,9 @@ class Lancamento(ModeratedModel):
 
         super(Lancamento, self).save(*args, **kwargs)
 
-def sendmail_lancamento(sender, instance, created, **kwargs):
-    mail_shortcuts(instance)
+def alert_lancamento(sender, instance, created, **kwargs):
+    sendgrid_lancamento(instance)
+    print("Email Enviado.")
 
-post_save.connect(sendmail_lancamento, sender=Lancamento)
+post_save.connect(alert_lancamento, sender=Lancamento)
 
