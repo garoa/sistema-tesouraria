@@ -43,6 +43,9 @@ class Associado(models.Model):
     def __str__(self):
         return self.user
 
+    def get_last_plano(self):
+        return Plano.objects.filter(user=self.user).latest('created_on')
+
 
 def create_user_associado(sender, instance, created, **kwargs):
 
@@ -147,7 +150,6 @@ class Lancamento(ModeratedModel):
     user = models.ForeignKey(
         User,
         models.SET_NULL,
-        blank=True,
         null=True,
     )
 
