@@ -41,7 +41,7 @@ class Associado(models.Model):
     mestre = models.CharField(max_length=32)
 
     def __str__(self):
-        return self.user
+        return self.user.__str__()
 
     def is_in_starving_hacker(self):
         # TODO: Retorna de o Associado estah em Starving Hacker
