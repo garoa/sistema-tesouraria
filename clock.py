@@ -15,11 +15,16 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 sched = BlockingScheduler()
 
 # Cron roda dia 01, todo mes
-
-
-@sched.scheduled_job('cron', day=1)
+@sched.scheduled_job('cron', day=2)
 def faz_lancamentos():
     users = User.objects.all()
+
+    # TODO:
+    # Verificar Starving Hacker
+    # Verificar Anuidade
+    # Verificar valor 85, 130
+
+    descricao = 'Lançamento mensalidade mês %s-%s' % (timezone.now().month, timezone.now().year)
 
     for user in users:
         Lancamento.objects.create(
@@ -28,7 +33,6 @@ def faz_lancamentos():
             credito_debito='d',
             timestamp_comprovante=timezone.now(),
             valor=85.0,
-            descricao='Lançamento mensalidade mês %s' % timezone.now().month,
-        )
+            descricao=descricao)
 
 sched.start()

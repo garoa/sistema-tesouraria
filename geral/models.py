@@ -43,7 +43,12 @@ class Associado(models.Model):
     def __str__(self):
         return self.user
 
+    def is_in_starving_hacker(self):
+        # TODO: Retorna de o Associado estah em Starving Hacker
+        pass
+
     def get_last_plano(self):
+        # TODO: Refatorar
         return Plano.objects.filter(user=self.user).latest('created_on')
 
 
@@ -202,7 +207,7 @@ class Lancamento(ModeratedModel):
 
 def alert_lancamento(sender, instance, created, **kwargs):
     sendgrid_lancamento(instance)
-    print("Email Enviado.")
+    print("Email Lançamento Enviado.")
 
 post_save.connect(alert_lancamento, sender=Lancamento)
 

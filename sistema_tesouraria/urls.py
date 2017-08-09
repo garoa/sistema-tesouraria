@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', RedirectView.as_view(url='https://www.youtube.com/watch?v=ednKK8GlvwI')),
     url(r'^conselho/', admin.site.urls),
     url(r'^', include('geral.urls')),
+    url(r'^signup/', include('confirmation.urls')),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
 ]
