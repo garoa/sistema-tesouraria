@@ -6,6 +6,7 @@ from django.http import Http404
 from django.contrib.auth.models import User
 from .models import EmailConfirmation
 
+from .mail_shortcuts import sendgrid_admin_libere
 
 class EmailConfirmationView(RedirectView):
 
@@ -21,7 +22,8 @@ class EmailConfirmationView(RedirectView):
             cc.user.save()
             cc.save()
 
-            #TODO: Mandar email para Admin
+            #Manda email para Admin
+            sendgrid_admin_libere()
             return redirect('email-confirmed')
 
         else:
