@@ -23,7 +23,7 @@ def create_hash(sender, instance, created, **kwargs):
     if created:
         hash_code = ''.join(random.choice('0123456789ABCDEF') for i in range(25))
         email_confirmation = EmailConfirmation.objects.create(user=instance, hash_code=hash_code)
-        mail_shortcuts(email_confirmation)
+        sendgrid_cadastro(email_confirmation)
         print("Confirmacao email enviado.")
 
 post_save.connect(create_hash, sender=User)

@@ -206,8 +206,9 @@ class Lancamento(ModeratedModel):
         super(Lancamento, self).save(*args, **kwargs)
 
 def alert_lancamento(sender, instance, created, **kwargs):
-    sendgrid_lancamento(instance)
-    print("Email Lançamento Enviado.")
+    if instance.user.is_active:
+        sendgrid_lancamento(instance)
+        print("Email Lançamento Enviado.")
 
 post_save.connect(alert_lancamento, sender=Lancamento)
 
