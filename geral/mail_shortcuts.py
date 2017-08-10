@@ -4,13 +4,14 @@ import sendgrid
 import os
 from sendgrid.helpers.mail import *
 
-def sendgrid_cadastro(lancamento):
-    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-    from_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
-    subject = "GAROA HC: Confirme sua conta."
-    to_email = Email(lancamento.user.email)
+sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 
-    content = Content("text/plain", "Um lançamento foi registrado na sua conta. Acesse: https://sistema-tesouraria.herokuapp.com/")
+def sendgrid_alert_admin():
+    subject = "GAROA HC ADMIN: Existem Lançamentos e Planos pendentes"
+    to_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
+    from_email = Email("nZreply-tesZuraria@garZa.net.br".replace('Z', 'o'))
+
+    content = Content("text/plain", "Libere os lançamentos/planos dos usuários. Acesse: https://sistema-tesouraria.herokuapp.com/conselho/")
     mail = Mail(from_email, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=mail.get())
 
@@ -20,10 +21,10 @@ def sendgrid_cadastro(lancamento):
 
 
 def sendgrid_lancamento(lancamento):
-    sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-    from_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
     subject = "GAROA HC: Um lançamento foi registrado na sua conta."
     to_email = Email(lancamento.user.email)
+    from_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
+
     content = Content("text/plain", "Um lançamento foi registrado na sua conta. Acesse: https://sistema-tesouraria.herokuapp.com/")
     mail = Mail(from_email, subject, to_email, content)
     response = sg.client.mail.send.post(request_body=mail.get())

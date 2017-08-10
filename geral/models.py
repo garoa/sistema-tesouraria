@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from simple_history.models import HistoricalRecords
 
 from geral.mail_shortcuts import sendgrid_lancamento
+from geral.mail_shortcuts import sendgrid_alert_admin
 
 
 class Associado(models.Model):
@@ -64,6 +65,14 @@ def create_user_associado(sender, instance, created, **kwargs):
                 pass
         except User.associado.RelatedObjectDoesNotExist:
             Associado.objects.create(user=instance)
+
+            Plano.objects.create(
+                    user=instance,
+                    plano='ml',
+                    validade_data_inicio = timezone.today(),
+                    descricao = "Plano padrão.",
+                    valor = 130.00)
+
             Lancamento.objects.create(
                     moderation_status = 'A',
                     user=instance,
@@ -105,7 +114,7 @@ class ModeratedModel(models.Model):
 
     moderation_status = models.CharField(
         verbose_name='Status de Moderação',
-        help_text='O status "Rejected" não permite que o registro seja mostr    ado.',
+        help_text='O status "Rejected" não permite que o registro seja mostrado.',
         max_length=1,
         choices=MODERATION_CHOICES,
         default=PENDING)
@@ -133,8 +142,14 @@ class Plano(ModeratedModel):
         null=True,
     )
     validade_data_inicio = models.DateField()
-    data_validade_fim = models.DateField()
+    data_validade_fim = models.DateField(blank=True, null=True)
     descricao = models.TextField()
+    valor = models.DecimalField(max_digits=15, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        super(Plano, self).save(*args, **kwargs)
+        sendgrid_alert_admin()
+        print("Email Plano Enviado.")
 
 
 class Lancamento(ModeratedModel):
@@ -206,9 +221,9 @@ class Lancamento(ModeratedModel):
         super(Lancamento, self).save(*args, **kwargs)
 
 def alert_lancamento(sender, instance, created, **kwargs):
+    # Nao manda msg se o usuario nao estiver confirmado
     if instance.user.is_active:
         sendgrid_lancamento(instance)
         print("Email Lançamento Enviado.")
 
 post_save.connect(alert_lancamento, sender=Lancamento)
-

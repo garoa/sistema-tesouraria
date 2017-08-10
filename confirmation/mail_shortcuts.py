@@ -21,7 +21,7 @@ def sendgrid_cadastro(email_confirmation):
 
 def sendgrid_admin_libere():
     sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-    from_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
+    from_email = Email("nZreply-tesZuraria@garZa.net.br".replace('Z', 'o'))
     subject = "GAROA HC ADMIN: Libere o usuário."
     to_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
 

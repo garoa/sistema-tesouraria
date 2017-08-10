@@ -11,33 +11,43 @@
     {% endblock%}
 
     {% block content %}
-    <h2>Saldo:</h2>
+    <h2>Planos:</h2>
     <table border=1>
         <tr>
-            <th>ID</th>
-            <th>Timestamp</th>
+            <!-- <th>ID</th> -->
+            <!-- <th>Timestamp</th> -->
             <th>Status</th>
             <th>Plano</th>
+            <th>Valor</th>
             <th>Descrição</th>
-            <th>Validade Inicio</th>
-            <th>Validade Fim</th>
+            <th>Inicio</th>
+            <th>Validade</th>
         </tr>
         {% for reg in object_list %}
             <tr>
-                <td>{{ reg.id }}</td>
-                <td>{{ reg.approved_timestamp|default:"_ *¹" }}</td>
+                <!-- <td>{{ reg.id }}</td> -->
+                <!-- <td>{{ reg.approved_timestamp|default:"_ *¹" }}</td> -->
                 <td>{{ reg.get_moderation_status_display }}</td>
                 <td>{{ reg.get_plano_display }}</td>
+                <td>R$ {{ reg.valor }}</td>
                 <td>{{ reg.descricao }}</td>
-                <td>{{ reg.data_validade_inicio }}</td>
-                <td>{{ reg.data_validade_fim }}</td>
+                <td>{{ reg.validade_data_inicio }}</td>
+                <td>{{ reg.data_validade_fim|default:"_ *²" }}</td>
             </tr>
         {% endfor %}
 
     </table>
-    <p>
-    Todo lançamento sofre analise da Tesouraria.<br>
-    Enquanto o lançamento não for aprovado, ele aparece no saldo como 'Pendding'.<br>
-    Em caso de dúvidas, entre em contato: tesoureiro@garoa.net.br
+
+    <p>Em caso de dúvidas, entre em contato: tesoureiroa at garoa.net.br <br>
+    *¹ - Transções sujeitas a aprovação<br>
+    *² - Planos mensais tem validade indeterminada.<br>
+    </p>
+
+    <p> Todo associado é cadastrado no sistema no "Plano Padrão".<br>
+    O associado pode optar por outro plano a qualquer momento.<br>
+    Durante o mês de Fevereiro o associado pode optar pelo plano Anual com desconto.<br>
+    Existem também o programa Starving Hacker que proteje o associado que passa por dificultades financeiras.<br>
+    <b>No Momento, não é permitido a seleção do pelo através do sistema.</b>
+    Vamos trabalhar para melhorar isto no futuro.<br>
     </p>
     {% endblock %}
