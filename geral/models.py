@@ -69,7 +69,7 @@ def create_user_associado(sender, instance, created, **kwargs):
             Plano.objects.create(
                     user=instance,
                     plano='ml',
-                    validade_data_inicio = timezone.today(),
+                    validade_data_inicio = timezone.now().date(),
                     descricao = "Plano padrão.",
                     valor = 130.00)
 
