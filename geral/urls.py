@@ -10,4 +10,5 @@ urlpatterns = (
     url(r'minha-conta$', views.LancamentoListView.as_view(), name='lancamento-list'),
     url(r'submeter-comprovante$', views.LancamentoCreateView.as_view(), name='lancamento-create'),
     url(r'meus-planos$', views.PlanoListView.as_view(), name='plano-list'),
+    url(r'incluir-planos$', views.PlanoCreateView.as_view(), name='plano-create'),
 )

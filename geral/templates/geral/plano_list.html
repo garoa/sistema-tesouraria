@@ -6,7 +6,7 @@
         <li><a href="{% url 'admin:logout' %}">Logout</a>: {{ request.user }}</li>
         <li><a href="{% url 'lancamento-list' %}">Minha Conta</a></li>
         <li>Meus Planos</li>
-        <li><a href="{% url 'lancamento-create' %}">Submeter Comprovante</a></li>
+        <li><a href="{% url 'plano-create' %}">Incluir Plano</a></li>
     </ul>
     {% endblock%}
 
@@ -47,7 +47,5 @@
     O associado pode optar por outro plano a qualquer momento.<br>
     Durante o mês de Fevereiro o associado pode optar pelo plano Anual com desconto.<br>
     Existem também o programa Starving Hacker que proteje o associado que passa por dificultades financeiras.<br>
-    <b>No Momento, não é permitido a seleção do pelo através do sistema.</b>
-    Vamos trabalhar para melhorar isto no futuro.<br>
     </p>
     {% endblock %}

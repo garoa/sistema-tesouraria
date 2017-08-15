@@ -53,6 +53,21 @@ class LancamentoCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('lancamento-list')
 
 
+class PlanoCreateView(LoginRequiredMixin, CreateView):
+    fields = ['plano', 'valor']
+    model = Plano
+
+    def form_valid(self, form):
+        plano = form.save(commit=False)
+        plano.autor = 'u'
+        plano.user = self.request.user
+        return super(PlanoCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('plano-list')
+
+
+
 class ContadorCreateView(CreateView):
     model = User
     form_class = UserForm

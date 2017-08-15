@@ -141,7 +141,7 @@ class Plano(ModeratedModel):
         blank=True,
         null=True,
     )
-    validade_data_inicio = models.DateField()
+    validade_data_inicio = models.DateField(blank=True, null=True)
     data_validade_fim = models.DateField(blank=True, null=True)
     descricao = models.TextField()
     valor = models.DecimalField(max_digits=15, decimal_places=2)
