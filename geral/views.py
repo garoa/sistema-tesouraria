@@ -46,6 +46,7 @@ class LancamentoCreateView(LoginRequiredMixin, CreateView):
         lancamento.autor = 'u'
         lancamento.user = self.request.user
         lancamento.credito_debito = 'c'
+        lancamento.comprovante = self.request.FILES['comprovante']
 
         return super(LancamentoCreateView, self).form_valid(form)
 

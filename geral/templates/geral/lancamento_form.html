@@ -27,7 +27,7 @@
 
     {% block content %}
     <h2>Submissão de comprovantes:</h2>
-    <form action="" method="post">{% csrf_token %}
+    <form enctype="multipart/form-data" method="post" action="">{% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
