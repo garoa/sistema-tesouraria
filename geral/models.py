@@ -44,13 +44,24 @@ class Associado(models.Model):
     def __str__(self):
         return self.user.__str__()
 
+    def is_in_plano(self, plano):
+        ts = timezone.now()
+        planos = Plano.objects.filter(user=self.user, plano=plano,
+                validade_data_inicio__lte=ts,
+                data_validade_fim__gte=ts)
+        return planos
+
     def is_in_starving_hacker(self):
-        # TODO: Retorna de o Associado estah em Starving Hacker
-        pass
+        return bool(self.is_in_plano('sh'))
+
+    def is_in_anuidade(self):
+        return bool(self.is_in_plano('an'))
 
     def get_last_plano(self):
-        # TODO: Refatorar
-        return Plano.objects.filter(user=self.user).latest('created_on')
+        plano = self.is_in_plano('ml')
+        if plano:
+            return plano.latest('created_on')
+        return []
 
 
 def create_user_associado(sender, instance, created, **kwargs):
