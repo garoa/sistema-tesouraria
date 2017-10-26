@@ -43,7 +43,7 @@ def faz_lancamentos():
             autor='s',
             credito_debito='d',
             timestamp_comprovante=timezone.now(),
-            valor=85.0,
+            valor=valor,
             descricao=descricao)
 
 sched.start()
