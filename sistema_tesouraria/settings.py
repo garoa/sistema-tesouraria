@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django_extensions',
+    'database_files',
     # Disable Django's own staticfiles handling in favour of WhiteNoise, for
     # greater consistency between gunicorn and `./manage.py runserver`. See:
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
@@ -55,6 +56,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+DEFAULT_FILE_STORAGE = 'database_files.storage.DatabaseStorage'
+# False = No file on filesystem
+DB_FILES_AUTO_EXPORT_DB_TO_FS = False
+# URL_METHOD_2 = Looks straight on the DB
+DATABASE_FILES_URL_METHOD = 'URL_METHOD_2'
 
 ROOT_URLCONF = 'sistema_tesouraria.urls'
 

@@ -6,7 +6,7 @@ An utterly fantastic project starter template for Django 1.11.
 
 - Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
 - Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment. 
+- Latest Python 3.6 runtime environment.
 
 ## How to Use
 
@@ -51,3 +51,6 @@ Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
 - [Gunicorn](https://warehouse.python.org/project/gunicorn/)
 - [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
 - [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+
+## Dodgy 3rd Party Software
+- https://github.com/chrisspen/django-database-files-3000

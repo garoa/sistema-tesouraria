@@ -16,3 +16,4 @@ APScheduler==3.3.1
 sendgrid==4.2.1
 django-extensions==1.8.1
 python-decouple==3.0
+django-database-files-3000==1.0.2

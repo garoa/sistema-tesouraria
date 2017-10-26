@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^signup/', include('confirmation.urls')),
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
+
+    # Serve Database Files directly
+    url(r'', include('database_files.urls')),
 ]
 
 from django.conf import settings
