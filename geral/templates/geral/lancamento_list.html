@@ -3,7 +3,7 @@
     {% block nav-global %}
     <h2>Acesso</h2>
     <ul>
-        <li><a href="{% url 'admin:logout' %}">Logout</a>: {{ request.user }}</li>
+        <li><a href="{% url 'logout' %}">Logout</a>: {{ request.user }}</li>
         <li>Minha Conta</li>
         <li><a href="{% url 'plano-list' %}">Meus Planos</a></li>
         <li><a href="{% url 'lancamento-create'%}">Submeter Comprovante</a></li>
