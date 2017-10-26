@@ -46,4 +46,4 @@ def faz_lancamentos():
             valor=85.0,
             descricao=descricao)
 
-#sched.start()
+sched.start()
