@@ -35,8 +35,8 @@ def faz_lancamentos2():
             valor = 130
 
         # Faz lançamento uma vez por mês
-        if not Lancamento.objects.filter(
-                user=user, autor='s', credito_debito='d', descricao=descricao).exists()
+        if not Lancamento.objects.filter(user=user,
+                autor='s', credito_debito='d', descricao=descricao).exists():
 
             obj = Lancamento.objects.create(
                 user=user,
