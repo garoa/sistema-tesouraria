@@ -39,10 +39,12 @@ def faz_lancamentos2():
                 autor='s', credito_debito='d', descricao=descricao).exists():
 
             obj = Lancamento.objects.create(
+                moderation_status = 'A',
                 user=user,
                 autor='s',
                 credito_debito='d',
                 timestamp_comprovante=timezone.now(),
+                approved_timestamp=timezone.now(),
                 valor=valor,
                 descricao=descricao)
 
