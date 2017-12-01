@@ -84,7 +84,6 @@ class PasswordResetFormSendgrid(PasswordResetForm):
                 loader.render_to_string(email_template_name, context))
         mail = Mail(from_email, subject, to_email, body)
 
-        from IPython import embed; embed()
         response = sg.client.mail.send.post(request_body=mail.get())
 
         print(response.status_code)
