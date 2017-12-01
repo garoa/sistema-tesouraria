@@ -11,10 +11,12 @@ from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView
 
 from geral.models import Plano
 from geral.models import Lancamento
 from geral.form import UserForm
+from geral.form import PasswordResetFormSendgrid
 
 
 class PlanoListView(LoginRequiredMixin, ListView):
@@ -93,3 +95,5 @@ class ContadorCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('index')
 
+class PasswordResetViewSendgrid(PasswordResetView):
+    form_class = PasswordResetFormSendgrid

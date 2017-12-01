@@ -1,13 +1,18 @@
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
+
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
 from django.core.exceptions import ValidationError
+from django.template import loader
 
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth import (
     authenticate, get_user_model, password_validation,
 )
 import django.contrib.auth.password_validation as validators
-
 
 class UserForm(forms.ModelForm):
 
@@ -56,3 +61,33 @@ class UserForm(forms.ModelForm):
             user.save()
 
         return user
+
+
+class PasswordResetFormSendgrid(PasswordResetForm):
+    email = forms.EmailField(label=_("Email"), max_length=254)
+
+    def send_mail(self, subject_template_name, email_template_name,
+                  context, from_email, to_email, html_email_template_name=None):
+        """
+        Sends a django.core.mail.EmailMultiAlternatives to `to_email`.
+        """
+        #email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        #if html_email_template_name is not None:
+        #    html_email = loader.render_to_string(html_email_template_name, context)
+        #    email_message.attach_alternative(html_email, 'text/html')
+
+        sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+        subject = loader.render_to_string(subject_template_name, context)
+        from_email = Email("tesZureirZ@garZa.net.br".replace('Z', 'o'))
+        to_email = Email(to_email)
+        body = Content("text/plain",
+                loader.render_to_string(email_template_name, context))
+        mail = Mail(from_email, subject, to_email, body)
+
+        from IPython import embed; embed()
+        response = sg.client.mail.send.post(request_body=mail.get())
+
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+

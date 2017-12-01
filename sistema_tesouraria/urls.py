@@ -18,7 +18,10 @@ from django.contrib import admin
 #from django.contrib.auth import views as auth_views
 from django.conf.urls import include
 from django.views.generic.base import RedirectView
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import login, logout
+
+from geral.views import PasswordResetViewSendgrid
 
 urlpatterns = [
     url(r'^admin/', RedirectView.as_view(url='https://www.youtube.com/watch?v=ednKK8GlvwI')),
@@ -29,6 +32,7 @@ urlpatterns = [
     url(r'^', include('geral.urls')),
 
     # Password Reset
+    url(r'^password_reset/$', PasswordResetViewSendgrid.as_view(), name='password_reset'),
     url(r'^', include('django.contrib.auth.urls')),
 
     # Serve Database Files directly
