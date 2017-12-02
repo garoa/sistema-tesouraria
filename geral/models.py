@@ -78,6 +78,8 @@ def create_user_associado(sender, instance, created, **kwargs):
             Associado.objects.create(user=instance)
 
             Plano.objects.create(
+                    moderation_status = 'A',
+                    approved_timestamp=timezone.now(),
                     user=instance,
                     plano='ml',
                     validade_data_inicio = timezone.now().date(),
@@ -86,12 +88,12 @@ def create_user_associado(sender, instance, created, **kwargs):
 
             Lancamento.objects.create(
                     moderation_status = 'A',
+                    approved_timestamp=timezone.now(),
                     user=instance,
                     autor='s',
                     valor='0',
                     saldo='0',
                     timestamp_comprovante=timezone.now(),
-                    approved_timestamp=timezone.now(),
                     credito_debito='c',
                     descricao='Abertura da Conta')
 
