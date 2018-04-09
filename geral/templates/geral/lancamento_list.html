@@ -11,6 +11,30 @@
     {% endblock%}
 
     {% block content %}
+
+    <h2>Pagamento pelo Paypal: <h2>
+    <div>
+        <div>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="CMUNHJYRJUG4A">
+<table>
+<tr><td><input type="hidden" name="on0" value="Opções para Associados">Opções para Associados</td></tr><tr><td><select name="os0">
+    <option value="Mensalidade Reduzida">Mensalidade Reduzida : R$90,00 BRL - mensalmente</option>
+    <option value="Mensalidade Integral">Mensalidade Integral : R$130,00 BRL - mensalmente</option>
+    <!-- <option value="Amigos do Garoa">Amigos do Garoa : R$30,00 BRL - mensalmente</option> -->
+</select> </td></tr>
+<tr><td><input type="hidden" name="on1" value="Observação:">Observação:</td></tr><tr><td><input type="text" name="os1" maxlength="200"></td></tr>
+</table>
+<input type="hidden" name="currency_code" value="BRL">
+<input type="image" src="https://www.paypalobjects.com/pt_BR/BR/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
+</form>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+
     <h2>Saldo:</h2>
     <table border=1>
         <tr>
@@ -39,31 +63,6 @@
 
     <p>Em caso de dúvidas, entre em contato: tesoureiro@garoa.net.br <br> *¹ - Transções sujeitas a aprovação
     </p>
-
-    <h2>Pagamento pelo Paypal: <h2>
-
-    <div>
-        <div>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="CMUNHJYRJUG4A">
-                <table>
-                <tr><td><input type="hidden" name="on0" value=""></td></tr><tr><td><select name="os0">
-                    <option value="Associado - Reduzida">Associado - Reduzida : R$85,00 BRL - mensalmente</option>
-                    <option value="Associado - Normal">Associado - Normal : R$130,00 BRL - mensalmente</option>
-                    <!--
-                    <option value="Amigos do Garoa">Amigos do Garoa : R$30,00 BRL - mensalmente</option>
-                    -->
-                </select> </td></tr>
-                <tr><td><input type="hidden" name="on1" value="Observação:">Observação:</td></tr><tr><td><input type="text" name="os1" maxlength="200"></td></tr>
-                </table>
-                <input type="hidden" name="currency_code" value="BRL">
-                <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_subscribe_SM.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
-                <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1">
-            </form>
-        </div>
-        <div style="clear: both;"></div>
-    </div>
 
 
     {% endblock %}
