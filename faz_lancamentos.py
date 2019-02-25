@@ -31,8 +31,8 @@ def faz_lancamentos2():
             # Mensal: Lanca 130
             valor = last_plano.valor
         else:
-            # Sem Plano: Lanca 130
-            valor = 130
+            # Sem Plano: Lanca 70
+            valor = 70
 
         # Faz lançamento uma vez por mês
         if not Lancamento.objects.filter(user=user,
