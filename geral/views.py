@@ -57,13 +57,15 @@ class LancamentoCreateView(LoginRequiredMixin, CreateView):
 
 
 class PlanoCreateView(LoginRequiredMixin, CreateView):
-    fields = ['plano', 'valor']
+    fields = ['plano']
     model = Plano
 
     def form_valid(self, form):
-        plano = form.save(commit=False)
-        plano.autor = 'u'
-        plano.user = self.request.user
+        obj = form.save(commit=False)
+        obj.autor = 'u'
+        obj.user = self.request.user
+        obj.valor = Plano.PLANO_PRICES[obj.plano]
+
         return super(PlanoCreateView, self).form_valid(form)
 
     def get_success_url(self):

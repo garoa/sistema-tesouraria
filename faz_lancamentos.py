@@ -1,6 +1,10 @@
 # -*- coding: utf-8
 #!/usr/bin/env python
 
+"""
+O Heroku Scheduler roda este script diariamente
+"""
+
 import os
 import sys
 import django
@@ -19,17 +23,17 @@ def faz_lancamentos2():
     descricao = 'Lançamento mensalidade mês %s-%s' % (timezone.now().month, timezone.now().year)
 
     for user in users:
+        plano_vigente = user.associado.get_last_plano()
 
-        last_plano = user.associado.get_last_plano()
         if user.associado.is_in_anuidade():
             # Anuidade: Jah foi lancado
             continue
         elif user.associado.is_in_starving_hacker():
             # Starving: Lanca zero
             valor=0.0
-        elif last_plano:
+        elif plano_vigente:
             # Mensal: Lanca valor do plano
-            valor = last_plano.valor
+            valor = plano_vigente.valor
         else:
             # Sem Plano: Lanca valor padrao
             valor = 105

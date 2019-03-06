@@ -33,6 +33,21 @@
         <div style="clear: both;"></div>
     </div>
 
+    <h2>Plano:</h2>
+        {% if user.associado.plano_qs %}
+            Atualmente você está cadastrado nos seguintes planos:
+            <ul>
+                {% for p in user.associado.plano_qs %}
+                {% if p.state == "p" %}<li><font color="gray">{{ p }}</font></li>{% endif %}
+                {% if p.state == "v" %}<li>{{ p }}</li>{% endif %}
+                {% if p.state == "e" %}<li><strike>{{ p }}</strike></li>{% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <font color="red">Por favor, cadastre ou atualize seu plano.</font>
+            > <a href="{% url 'plano-list' %}">Meus Planos</a>
+            <br>* Se sistema não encontrar um plano cadastrado, ele irá debitar mensalmente a mensalidade padrão
+        {% endif %}
 
     <h2>Saldo:</h2>
     <table border=1>

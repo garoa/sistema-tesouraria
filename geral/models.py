@@ -44,25 +44,27 @@ class Associado(models.Model):
     def __str__(self):
         return self.user.__str__()
 
-    def is_in_plano(self, plano):
-        ts = timezone.now()
-        planos = Plano.objects.filter(user=self.user, plano=plano,
-                validade_data_inicio__lte=ts,
-                data_validade_fim__gte=ts)
+    def plano_qs(self, planos_list=[]):
+        planos = Plano.objects.filter(user=self.user).order_by('-id')
+        if planos_list:
+            planos = planos.filter(plano__in=planos_list)
         return planos
 
     def is_in_starving_hacker(self):
-        return bool(self.is_in_plano('sh'))
+        qs = self.plano_qs(['sh'])
+        return bool([p for p in qs if p.state in ('v',)])
 
     def is_in_anuidade(self):
-        return bool(self.is_in_plano('an'))
+        qs = self.plano_qs(['an'])
+        return bool([p for p in qs if p.state in ('v',)])
 
     def get_last_plano(self):
-        plano = self.is_in_plano('ml')
-        if plano:
-            return plano.latest('created_on')
-        return []
+        qs = self.plano_qs(['ml', 'pp'])
+        planos = [p for p in qs if p.state in ('v',)]
+        if planos:
+            return planos[0]
 
+        return False
 
 def create_user_associado(sender, instance, created, **kwargs):
 
@@ -84,7 +86,7 @@ def create_user_associado(sender, instance, created, **kwargs):
                     plano='ml',
                     validade_data_inicio = timezone.now().date(),
                     descricao = "Plano padrão.",
-                    valor = 130.00)
+                    valor = 105.00)
 
             Lancamento.objects.create(
                     moderation_status = 'A',
@@ -137,14 +139,30 @@ class Plano(ModeratedModel):
 
     PLANO_CHOICES = (
         ('an', 'Anuidade'),
-        ('ml', 'Mensalidades'),
+        ('ml', 'Itaú - Mensalidades'),
+        ('pp', 'Paypal - Mensalidades'),
         ('sh', 'Starving Hacker'),
     )
+
+    PLANO_PRICES = {
+        'an': 95*12,
+        'ml': 105,
+        'pp': 95,
+        'sh': 0,
+    }
+
+    PLANO_STATE = {
+        'p': 'pré-programado',
+        'v': 'vigente',
+        'e': 'encerrado',
+    }
+
 
     # tipo plano (Anuidade, Starving)
     plano = models.CharField(
         max_length=2,
-        choices=PLANO_CHOICES
+        choices=PLANO_CHOICES,
+        default='ml'
     )
 
     # user
@@ -154,10 +172,25 @@ class Plano(ModeratedModel):
         blank=True,
         null=True,
     )
+
     validade_data_inicio = models.DateField(blank=True, null=True)
     data_validade_fim = models.DateField(blank=True, null=True)
     descricao = models.TextField()
     valor = models.DecimalField(max_digits=15, decimal_places=2)
+
+    def __str__(self):
+        validade = self.data_validade_fim if  self.data_validade_fim is not None else 'Indeterminado'
+        return "%s - R$%d até %s" % (self.get_plano_display(), self.valor, validade)
+
+    @property
+    def state(self):
+        ts = timezone.now().date()
+        if self.validade_data_inicio >= ts:
+            return 'p'
+        if self.data_validade_fim is not None:
+            if self.data_validade_fim <= ts:
+                return 'e'
+        return 'v'
 
     def save(self, *args, **kwargs):
         super(Plano, self).save(*args, **kwargs)
