@@ -4,13 +4,16 @@ from geral.models import Lancamento
 from geral.models import Plano
 
 class PlanoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'plano', 'descricao', 'validade_data_inicio', 'data_validade_fim', 'approved_timestamp', 'moderation_status',)
+    list_display = ('id', 'user', 'plano', 'descricao', 'validade_data_inicio',
+            'data_validade_fim', 'approved_timestamp', 'moderation_status',
+            'created_on')
     list_filter = ('moderation_status', 'user')
     search_fields = ('descricao',)
 
 
 class LancamentoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'autor', 'credito_debito', 'valor', 'saldo', 'descricao', 'approved_timestamp', 'moderation_status',)
+    list_display = ('id', 'user', 'autor', 'credito_debito', 'valor', 'saldo',
+            'descricao', 'approved_timestamp', 'moderation_status', 'created_on')
     list_filter = ('credito_debito', 'moderation_status', 'user')
     search_fields = ('descricao',)
 
