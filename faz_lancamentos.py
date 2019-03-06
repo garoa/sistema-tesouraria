@@ -23,7 +23,9 @@ def faz_lancamentos2():
     descricao = 'Lançamento mensalidade mês %s-%s' % (timezone.now().month, timezone.now().year)
 
     for user in users:
-        plano_vigente = user.associado.get_last_plano()
+
+        has_mensalidade = user.associado.has_mensalidade()
+        plano_vigente = has_mensalidade[0] if has_mensalidade: else False
 
         if user.associado.is_in_anuidade():
             # Anuidade: Jah foi lancado

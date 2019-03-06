@@ -52,19 +52,29 @@ class Associado(models.Model):
 
     def is_in_starving_hacker(self):
         qs = self.plano_qs(['sh'])
-        return bool([p for p in qs if p.state in ('v',)])
+        return [p for p in qs if p.state in ('v',)]
 
     def is_in_anuidade(self):
         qs = self.plano_qs(['an'])
-        return bool([p for p in qs if p.state in ('v',)])
+        return [p for p in qs if p.state in ('v',)]
 
-    def get_last_plano(self):
+    def has_mensalidade(self):
         qs = self.plano_qs(['ml', 'pp'])
-        planos = [p for p in qs if p.state in ('v',)]
-        if planos:
-            return planos[0]
+        return [p for p in qs if p.state in ('v',)]
 
-        return False
+    def get_plano_vigente(self):
+       anuidade = self.is_in_anuidade()
+       starving_hacker = self.is_in_starving_hacker()
+       plano_vigente = self.has_mensalidade()
+
+       if anuidade:
+           return anuidade[0]
+       elif starving_hacker:
+           return starving_hacker[0]
+       elif plano_vigente:
+           return plano_vigente[0]
+
+       return False
 
 def create_user_associado(sender, instance, created, **kwargs):
 

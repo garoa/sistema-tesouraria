@@ -34,14 +34,14 @@
     </div>
 
     <h2>Plano:</h2>
-        {% if user.associado.plano_qs %}
+        {% if user.associado.get_plano_vigente %}
             Atualmente você está cadastrado nos seguintes planos:
             <ul>
-                {% for p in user.associado.plano_qs %}
+                {% with  user.associado.get_plano_vigente as p %}
                 {% if p.state == "p" %}<li><font color="gray">{{ p }}</font></li>{% endif %}
                 {% if p.state == "v" %}<li>{{ p }}</li>{% endif %}
                 {% if p.state == "e" %}<li><strike>{{ p }}</strike></li>{% endif %}
-                {% endfor %}
+                {% endwith %}
             </ul>
         {% else %}
             <font color="red">Por favor, cadastre ou atualize seu plano.</font>
