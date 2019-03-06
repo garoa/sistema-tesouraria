@@ -28,11 +28,11 @@ def faz_lancamentos2():
             # Starving: Lanca zero
             valor=0.0
         elif last_plano:
-            # Mensal: Lanca 130
+            # Mensal: Lanca valor do plano
             valor = last_plano.valor
         else:
-            # Sem Plano: Lanca 130
-            valor = 130
+            # Sem Plano: Lanca valor padrao
+            valor = 105
 
         # Faz lançamento uma vez por mês
         if not Lancamento.objects.filter(user=user,
